@@ -1,0 +1,237 @@
+{
+  "demo": true,
+  "as_of": "2026-11-18",
+  "warehouses": [
+    {
+      "id": "MIA",
+      "name": "Miami Distribution Center"
+    },
+    {
+      "id": "ORL",
+      "name": "Orlando Warehouse"
+    },
+    {
+      "id": "PAN",
+      "name": "Panama Regional Hub"
+    }
+  ],
+  "products": [
+    {
+      "sku": "IND-920",
+      "name": "Induction Pro 920 Cooktop",
+      "brand": "Premium Kitchen",
+      "category": "Cooktop",
+      "cost": 1520,
+      "price": 2190
+    },
+    {
+      "sku": "OVN-760",
+      "name": "Convection Wall Oven 760",
+      "brand": "Premium Kitchen",
+      "category": "Oven",
+      "cost": 2150,
+      "price": 3150
+    },
+    {
+      "sku": "REF-480",
+      "name": "Integrated Refrigerator 480",
+      "brand": "Premium Kitchen",
+      "category": "Refrigeration",
+      "cost": 4850,
+      "price": 6900
+    },
+    {
+      "sku": "DWS-220",
+      "name": "QuietWash Dishwasher 220",
+      "brand": "Premium Kitchen",
+      "category": "Dishwasher",
+      "cost": 920,
+      "price": 1490
+    },
+    {
+      "sku": "HOD-310",
+      "name": "Ventilation Hood 310",
+      "brand": "Premium Kitchen",
+      "category": "Ventilation",
+      "cost": 760,
+      "price": 1290
+    },
+    {
+      "sku": "IND-900",
+      "name": "Induction Pro 900 Cooktop (Discontinued)",
+      "brand": "Premium Kitchen",
+      "category": "Cooktop",
+      "cost": 1350,
+      "price": 1990
+    }
+  ],
+  "inventory": [
+    {
+      "sku": "IND-920",
+      "warehouse": "MIA",
+      "on_hand": 180,
+      "reserved": 112
+    },
+    {
+      "sku": "IND-920",
+      "warehouse": "ORL",
+      "on_hand": 96,
+      "reserved": 80
+    },
+    {
+      "sku": "IND-920",
+      "warehouse": "PAN",
+      "on_hand": 60,
+      "reserved": 25
+    },
+    {
+      "sku": "OVN-760",
+      "warehouse": "MIA",
+      "on_hand": 155,
+      "reserved": 85
+    },
+    {
+      "sku": "REF-480",
+      "warehouse": "MIA",
+      "on_hand": 82,
+      "reserved": 55
+    },
+    {
+      "sku": "DWS-220",
+      "warehouse": "ORL",
+      "on_hand": 110,
+      "reserved": 60
+    },
+    {
+      "sku": "HOD-310",
+      "warehouse": "MIA",
+      "on_hand": 130,
+      "reserved": 45
+    },
+    {
+      "sku": "IND-900",
+      "warehouse": "MIA",
+      "on_hand": 0,
+      "reserved": 0
+    }
+  ],
+  "customers": [
+    {
+      "id": "C-101",
+      "name": "Marina Heights Development Group",
+      "type": "Builder"
+    },
+    {
+      "id": "C-102",
+      "name": "Bayfront Residences",
+      "type": "Builder"
+    },
+    {
+      "id": "C-103",
+      "name": "Coastal Kitchen Studio",
+      "type": "Dealer"
+    }
+  ],
+  "projects": [
+    {
+      "id": "PRJ-1001",
+      "name": "Marina Heights Residences",
+      "customer_id": "C-101",
+      "residences": 400,
+      "contract_value": 4200000,
+      "model_change_cost": 96000,
+      "schedule_impact_days": 11
+    },
+    {
+      "id": "PRJ-1002",
+      "name": "Bayfront Residences",
+      "customer_id": "C-102",
+      "residences": 180,
+      "contract_value": 1950000,
+      "model_change_cost": 0,
+      "schedule_impact_days": 0
+    }
+  ],
+  "sales_orders": [
+    {
+      "id": "SO-1101",
+      "customer_id": "C-101",
+      "project_id": "PRJ-1001",
+      "sku": "IND-920",
+      "quantity": 400,
+      "unit_price": 2190,
+      "status": "Partially fulfilled",
+      "delivered": 112
+    },
+    {
+      "id": "SO-1102",
+      "customer_id": "C-101",
+      "project_id": "PRJ-1001",
+      "sku": "OVN-760",
+      "quantity": 400,
+      "unit_price": 3150,
+      "status": "Open",
+      "delivered": 0
+    },
+    {
+      "id": "SO-1103",
+      "customer_id": "C-102",
+      "project_id": "PRJ-1002",
+      "sku": "REF-480",
+      "quantity": 180,
+      "unit_price": 6900,
+      "status": "Open",
+      "delivered": 35
+    }
+  ],
+  "purchase_orders": [
+    {
+      "id": "PO-2101",
+      "supplier_id": "SUP-01",
+      "sku": "IND-920",
+      "quantity": 200,
+      "expected_date": "2026-12-02",
+      "status": "Confirmed"
+    },
+    {
+      "id": "PO-2102",
+      "supplier_id": "SUP-02",
+      "sku": "REF-480",
+      "quantity": 100,
+      "expected_date": "2026-12-15",
+      "status": "Open"
+    }
+  ],
+  "suppliers": [
+    {
+      "id": "SUP-01",
+      "name": "Precision Appliance Supply",
+      "on_time_delivery_pct": 91,
+      "average_lead_days": 24
+    },
+    {
+      "id": "SUP-02",
+      "name": "European Kitchen Distribution",
+      "on_time_delivery_pct": 82,
+      "average_lead_days": 39
+    }
+  ],
+  "shipments": [
+    {
+      "id": "SH-3101",
+      "project_id": "PRJ-1001",
+      "sku": "IND-920",
+      "quantity": 112,
+      "status": "Delivered",
+      "date": "2026-11-17"
+    },
+    {
+      "id": "SH-3102",
+      "project_id": "PRJ-1001",
+      "sku": "IND-920",
+      "quantity": 96,
+      "status": "Scheduled",
+      "date": "2026-12-04"
+    }
+  ]
+}
