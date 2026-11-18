@@ -4,6 +4,7 @@ import { McpServer } from "@modelcontextprotocol/sdk/server/mcp.js";
 import { StreamableHTTPServerTransport } from "@modelcontextprotocol/sdk/server/streamableHttp.js";
 import { z } from "zod";
 const data=JSON.parse(fs.readFileSync(new URL("./data/erp.json",import.meta.url),"utf8"));
+function makeServer(){
 const server=new McpServer({name:"sap-erp-demo",version:"1.0.0"});
 const out=x=>({content:[{type:"text",text:JSON.stringify({demo:true,data:x},null,2)}]});
 const match=(x,q)=>!q||JSON.stringify(x).toLowerCase().includes(q.toLowerCase());
@@ -18,4 +19,6 @@ server.tool("get_project_appliances","Project appliance sales orders and shipmen
 server.tool("get_supplier_performance","Supplier performance",{},async()=>out(data.suppliers));
 server.tool("get_sales_summary","Summarize sales orders",{},async()=>out({order_count:data.sales_orders.length,order_value:data.sales_orders.reduce((s,x)=>s+x.quantity*x.unit_price,0),open_orders:data.sales_orders.filter(x=>x.status!=="Closed")}));
 server.tool("get_inventory_risks","Low available stock and discontinued SKUs",{threshold:z.number().optional()},async({threshold=25})=>out(data.inventory.map(x=>({...x,available:x.on_hand-x.reserved})).filter(x=>x.available<=threshold||data.products.some(p=>p.sku===x.sku&&p.name.includes("Discontinued")))));
-const app=express();app.use(express.json({limit:"1mb"}));app.get("/health",(_,res)=>res.json({status:"ok",demo:true}));app.post("/mcp",async(req,res)=>{const transport=new StreamableHTTPServerTransport({sessionIdGenerator:undefined});res.on("close",()=>transport.close());await server.connect(transport);await transport.handleRequest(req,res,req.body)});app.get("/mcp",(_,res)=>res.status(405).end());app.delete("/mcp",(_,res)=>res.status(405).end());app.listen(process.env.PORT||3000,()=>console.log("Mock SAP MCP listening"));
+return server;
+}
+const app=express();app.use(express.json({limit:"1mb"}));app.get("/health",(_,res)=>res.json({status:"ok",demo:true}));app.post("/mcp",async(req,res)=>{const transport=new StreamableHTTPServerTransport({sessionIdGenerator:undefined});const server=makeServer();res.on("close",()=>{transport.close();server.close()});await server.connect(transport);await transport.handleRequest(req,res,req.body)});app.get("/mcp",(_,res)=>res.status(405).end());app.delete("/mcp",(_,res)=>res.status(405).end());app.listen(Number(process.env.PORT)||3000,()=>console.log("Mock SAP MCP listening"));
